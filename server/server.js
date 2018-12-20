@@ -85,7 +85,10 @@ app.delete('/todos/:id',authenticate,(req,res)=>{
    if(!ObjectID.isValid(id)){
        return res.status(404).send();
    }
-   Todo.findByIdAndRemove(id).then((todo)=>{
+   Todo.findOneAndRemove({
+    _id:id,
+    _creator:req.user._id
+ }).then((todo)=>{
        if(!todo)
            {
                return res.status(404).send();
@@ -237,3 +240,11 @@ app.listen(port,()=>{
 
 
 module.exports = {app}; 
+
+
+
+
+
+
+
+// ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC4P/t5bO7aOvj/q/op0Sn7pJpPecVfsKMOFi2GB5GO2ZGMLiQSBt4DmlN3p69TMhMdPAugXHKMbNloD1KsE6CXRt82wMghAqVxiNLJjD7knvsaM8F7HaXjWbuE/Nx25UTV09az3a2ogZpOzNLjw78VhL1iBF6idw7BwCk4Pjms/XaTu/O+4rZTPJlzW7Nam+1dj+p0mcfNEMwFoMiToJ5o5b5cFMkJ0IWga5HgBaM3+DZODt0u4LAE/4LRkQi3VlOPsjOMEDtrBbFRrcbRO1MkkEgO0bfcOyMyleLLJU2kLhhecyUHSE0/eFIocOSnAB02uv/s0owVQPMHQiVif9aGskMswYSeRQkelW3I1lyZWXQhNS5Yw+c5Y2JJ63vEkYpBEWkt3XA73MV0gotM8QVZwhQNPGF1Xu2wvGzljTWZcwfDAitwDlQWbmQsD6py8yaL/yG378CdAKUxrCi8D/jtDtzs8o/ZVgu1a+QXh7eezTo/x5pjRrA8bHWwfmFX6qUVs0nZbYOY47PFg5Tk3rrvsOCz/bVglYBNUmAk8hzXYjWZPT+w47yEUVqSZ16t3RpX9dX1EaLXOHdknMhvk1lC3AsWVHPQk8O4ZO9pGwb1hmL+aMRPv6wd0ofedWSrtANXWXt2MuD040SD3f0eztd1WJx3WdO4PqpTVusohniWGQ== yjariwala25@gmail.com
